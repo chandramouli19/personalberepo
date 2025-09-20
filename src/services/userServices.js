@@ -14,12 +14,18 @@ return await UserInfo.deleteOne({userinfouid})
 }
 
 const getUserById = async (userinfouid)=>{
-return await UserInfo.findById({userinfouid})
+  console.log(userinfouid)
+return await UserInfo.findOne({ userinfouid: userinfouid })
+}
+
+const deleteallusers = async () =>{
+  return await UserInfo.deleteMany()
 }
 
 module.exports = {
   createUser,
   getAllUsers,
   deleteSingleUser,
-  getUserById
+  getUserById,
+  deleteallusers
 };

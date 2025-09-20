@@ -1,8 +1,9 @@
 // server.js
 const express = require('express');
 const connectDB = require('./config/db');  // Importing DB connection logic
-const userRoutes = require('./src/routes/basicinfoController');
+const userRoutes = require('./src/routes/userRoutes');
 const listEndpoints = require('express-list-endpoints');
+const errorHandler = require('./src/middleware/errorHandler');
 
 const app = express();
 
@@ -11,6 +12,9 @@ app.use(express.json());
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use(errorHandler)
+
+console.table(listEndpoints(app));
 
 // Connect to DB
 connectDB();
@@ -19,5 +23,5 @@ connectDB();
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  console.table(listEndpoints(app));
+ 
 });
